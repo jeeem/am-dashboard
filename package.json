@@ -3,7 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "deploy": "gcloud app deploy",
     "start": "node ./bin/www"
+  },
+  "engines": {
+    "node": "8.x.x"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^2.3.0",
+    "semistandard": "^12.0.1"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
