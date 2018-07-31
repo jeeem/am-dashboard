@@ -151,9 +151,10 @@ function contentString(venue) {
 for (var i = 0; i < cusid_ele.length; i++) {
     var item = cusid_ele[i];
     item.addEventListener('click', function(e) {
+        var clickParent = e.target.parentNode;
         var jPopupDemo = new jPopup({
 
-            content: contentString(window._venues[e.path[1].dataset.indexnumber])
+            content: contentString(window._venues[clickParent.dataset.indexnumber])
 
         });
     });
@@ -162,7 +163,7 @@ for (var i = 0; i < cusid_ele.length; i++) {
 for (var i = 0; i < add_ele.length; i++) {
     var item = add_ele[i];
     item.addEventListener('click', function(e) {
-      var parentEle = e.path[1];
+      var parentEle = e.target.parentNode;
       if (
         typeof parentEle.dataset.indexnumber !== 'undefined'
         && !parentEle.classList.contains('mdl-button--colored')) {
@@ -172,11 +173,6 @@ for (var i = 0; i < add_ele.length; i++) {
       }
       parentEle.classList.add('mdl-button--colored');
       console.log('params', params);
-        // var jPopupDemo = new jPopup({
-        //
-        //     content: contentString(window._venues[e.path[1].dataset.indexnumber])
-        //
-        // });
     });
 }
 
