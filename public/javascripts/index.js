@@ -25,7 +25,7 @@ var venueImages = [
 window._venues.forEach(function(venue, index) {
   var venueCap = venue.Capacity || 500;
   var randomImage = venueImages[Math.floor(Math.random() * venueImages.length)];
-  var domString = `<div
+  var domString = `<div id="card-${index}"
     class="demo-card-square mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
     <div
       style="background-image: url(${randomImage})"
@@ -53,6 +53,9 @@ window._venues.forEach(function(venue, index) {
       <a data-indexnumber=${index} class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect openPopup">
         More Info
       </a>
+      <button data-indexnumber=${index} class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <i class="material-icons">add</i>
+      </button>
     </div>
   </div>`;
 
@@ -82,6 +85,7 @@ window._venues.forEach(function(venue, index) {
 
 
 var cusid_ele = document.getElementsByClassName('openPopup');
+var add_ele = document.getElementsByClassName('mdl-button--mini-fab');
 
 var fallbackNotes = `
 <p>This venue is a world-class multi-purpose event and entertainment complex. The theater offers a diverse set of dazzling options for your next event. Vibrant colors, ornate detailing, multiple floor plans, and state-of-the-art sound & lighting make the Belasco a logical choice for concerts.</p>
@@ -154,3 +158,38 @@ for (var i = 0; i < cusid_ele.length; i++) {
         });
     });
 }
+
+for (var i = 0; i < add_ele.length; i++) {
+    var item = add_ele[i];
+    item.addEventListener('click', function(e) {
+      var parentEle = e.path[1];
+      if (
+        typeof parentEle.dataset.indexnumber !== 'undefined'
+        && !parentEle.classList.contains('mdl-button--colored')) {
+        var params = new URLSearchParams(location.search);
+        params.append('x', parentEle.dataset.indexnumber);
+        window.history.replaceState({}, '', `${location.pathname}?${params}`);
+      }
+      parentEle.classList.add('mdl-button--colored');
+      console.log('params', params);
+        // var jPopupDemo = new jPopup({
+        //
+        //     content: contentString(window._venues[e.path[1].dataset.indexnumber])
+        //
+        // });
+    });
+}
+
+var initParams = new URLSearchParams(location.search);
+var indexArray = initParams.getAll('x');
+if (indexArray.length) {
+  var hideTheseChildren = document.getElementById(`cardsContainer`);
+  console.log(document.getElementById(`cardsContainer`));
+  hideTheseChildren.classList.add('hide-these-children');
+  indexArray.forEach(function(selectedIndex) {
+    var showThisNode = document.getElementById(`card-${selectedIndex}`);
+    showThisNode.style.display = 'flex';
+  });
+}
+console.log('initParams = ', initParams);
+console.log('indexArray = ', indexArray);

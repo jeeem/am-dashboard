@@ -13,8 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
+.hide-these-children .demo-card-square {
+  display: none;
+}
+.hide-these-children .mdl-button--fab.mdl-button--mini-fab {
+  display: none;
+}
+.mdl-button--fab.mdl-button--mini-fab {
+  float: right;
+}
  .jPopup .mdl-grid {
    max-height: 100vh;
    overflow:auto;
