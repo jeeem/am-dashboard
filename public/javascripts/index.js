@@ -26,7 +26,7 @@ window._venues.forEach(function(venue, index) {
   var venueCap = venue.Capacity || 500;
   var randomImage = venueImages[Math.floor(Math.random() * venueImages.length)];
   var domString = `<div id="card-${index}"
-    class="demo-card-square mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+    class="card-${index} demo-card-square mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
     <div
       style="background-image: url(${randomImage})"
       class="mdl-card__title mdl-card--expand"
@@ -183,8 +183,11 @@ if (indexArray.length) {
   console.log(document.getElementById(`cardsContainer`));
   hideTheseChildren.classList.add('hide-these-children');
   indexArray.forEach(function(selectedIndex) {
-    var showThisNode = document.getElementById(`card-${selectedIndex}`);
-    showThisNode.style.display = 'flex';
+    var showTheseNodes = document.getElementsByClassName(`card-${selectedIndex}`);
+    for (var i = 0; i < showTheseNodes.length; i++) {
+      var item = showTheseNodes[i];
+      item.style.display = 'flex';
+    }
   });
 }
 console.log('initParams = ', initParams);
