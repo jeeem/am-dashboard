@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var foo = require('../lavenues');
+
 
 function makeid() {
   var text = "";
@@ -13,7 +15,7 @@ function makeid() {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Venues Worldwide', sprite: makeid() });
+  res.render('index', { title: 'Venues Worldwide', sprite: makeid(), context: JSON.stringify(foo) });
 });
 
 module.exports = router;
